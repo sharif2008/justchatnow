@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="/js/socket.io-1.3.5.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script>
+
+		$(document).ready(function(){
+			var socket = io.connect(window.location.origin);
+			console.log("host is: "+window.location.origin);
+			var person = prompt("Please enter your name", "Your name");
+			while((person=="Your name")||(person==""))
+			{
+				person = prompt("Please enter your name", "Your name");
+			}
+			alert(person);
+			socket.on('connect', function () {
+				console.log('We are connected!');
+				this.emit('set nickname', person, function (success) {});
+				
+
+				socket.on('notifyall', function (data) {
+				   //alert(data.msg);
+				   $("#chathistory").append(data.msg);
+				});
+				
+				socket.on('msg', function (data) {
+					$("#chathistory").append(data.msg);	
+				});
+				socket.on('disconnect', function () {
+
+				});
+				 function messageSent()
+				{
+                                   var msg=$("#msg").val();
+					if(msg!=''){
+						$("#chathistory").append("<span style='color: red;'>"+person+"</span>:: "+msg+"<br>");	
+						socket.emit('msg', "<span style='color: green;'>"+person+"</span> >> "+msg+"<br>");
+						$("#msg").val("");
+					}
+					$('#send').focus();
+				  console.log("message typed: "+ msg);
+					var objDiv = document.getElementById("msg");
+					objDiv.scrollTop = objDiv.scrollHeight;
+				}
+				$("#send").click(function(){
+					messageSent();
+				});
+
+				 $('#msg').keypress(function(e) {
+				if(e.which == 13) {
+				    messageSent();
+				}
+			    });
+
+			});
+		
+			
+		});
+    </script>
+</head>
+<body>
+<h1>Welcome to our chat system</h1>
+<div id="chathistory"></div>
+<div >
+
+<textarea col="200" row="50" id="msg"></textarea><br>
+<span style="font-size:10px;color: grey;">press enter or</span>
+<input type="button" value="Send" id="send">
+
+
+</div>
+</body>
+</html>
