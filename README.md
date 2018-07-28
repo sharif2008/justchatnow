@@ -3,6 +3,8 @@ A simple chat application with nodejs
 
 Please visit for live demo: http://justchatnow.herokuapp.com/
 
+Open the link in two tabs/window and chat one another.
+
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/)
