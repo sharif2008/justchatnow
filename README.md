@@ -10,7 +10,7 @@ Open the link in two tabs/window and chat one another.
 Make sure you have [Node.js](http://nodejs.org/)
 
 ```sh
-$ git clone git@github.com:codebazz/justchatnow.git
+$ git clone git@github.com:sharif2008/justchatnow.git
 $ cd justchatnow
 $ node index.js (widows-7, 10)or nodejs index.js (ubuntu-14.04)
 ```
